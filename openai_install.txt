@@ -1,0 +1,65 @@
+As root:
+apt-get update
+apt-get upgrade
+apt-get install golang python3-dev libjpeg-dev python3-pip python-dev make tmux htop chromium-browser git cmake xvfb swig libjpeg-turbo8-dev
+########https://www.learnopencv.com/install-opencv3-on-ubuntu/
+pip3 install --upgrade pip
+pip3 install numpy
+
+# https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install docker-ce
+#verify
+docker run hello-world
+#substitute regular user here
+usermod -a -G docker dtcarls
+
+#as regular user
+mkdir dev
+cd dev
+git clone https://github.com/openai/universe.git
+cd universe
+sudo pip3 install -e .
+sudo docker build -t universe .
+sudo docker run --privileged --rm -e DOCKER_NET_HOST=172.17.0.1 -v /var/run/docker.sock:/var/run/docker.sock universe pytest
+
+
+######Universe starter agent
+#As root
+apt-get install -y tmux htop cmake golang libjpeg-dev zlib1g-dev
+pip3 install gym[atari]
+pip3 install universe
+pip3 install six
+###################VERY IMPORTANT TO INSTALL TENSORFLOW 0.12?
+pip3 install tensorflow==0.12.1
+pip3 install opencv-python
+pip3 install numpy
+pip3 install scipy
+#dont have number of workers exceed core count best to go under. no less than 2
+python train.py --num-workers 6 --env-id PongDeterministic-v4 --log-dir /tmp/pong
+python train.py --num-workers 6 --env-id PongDeterministic-v4 --log-dir /tmp/pong --visualise
+#runs in VNC client
+python train.py --num-workers 6--env-id gym-core.PongDeterministic-v4 --log-dir /tmp/vncpong
+## To access VNC without installing VNC client point to http://localhost:15900/viewer/?password=openai in your browser with the ports increasing with workers
+
+######Clustering
+https://github.com/openai/universe/issues/123
+https://github.com/openai/universe-starter-agent/issues/67
+
+######Adam tuning
+https://stackoverflow.com/questions/42966393/is-it-good-learning-rate-for-adam-method
+
+#### garbage?
+apt-get install apt-file build-essential ccze curl docker docker-doc docker.io docker-registry facter git golang golang-github-mitchellh-go-vnc-dev htop python3 libgl1-mesa-dev libjpeg-turbo8-dev libx11-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm1 libxxf86vm-dev make mesa-common-dev puppet python3-dev python3-numpy python3-virtualenv python-dev screen tree virtualenv x11*dev xtightvncviewer
+apt-get install -y python-numpy python-dev cmake zlib1g-dev libjpeg-dev xvfb libav-tools xorg-dev python-opengl libboost-all-dev libsdl2-dev swig
+apt-get install xvfb
+apt-get install vim
+pip install numpy
+pip3 install numpy
+pip install numpy
+sudo apt-get install golang libjpeg-turbo8-dev make
+sudo apt-get update
+apt-get install golang six
