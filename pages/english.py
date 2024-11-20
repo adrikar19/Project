@@ -14,7 +14,7 @@ st.title("Euphoria's English Practice")
 #     del st.session_state["messages"]
 
 # Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key="sk-Ex2o5lap7eghRuDJs5AAtKJVpAF-CaHm1-567EixP9T3BlbkFJ6egUK5hltqhNohneix8ePZ2uaxmzZgE3DdL63XUzcA")
+client = OpenAI(api_key="OPEN_API_KEY")
 
 # Set a default model
 if "openai_model" not in st.session_state:
